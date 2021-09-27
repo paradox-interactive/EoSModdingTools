@@ -1,0 +1,22 @@
+{
+    "name": "EoSModdingToolsEditor",
+    "references": [
+        "GUID:eff00d21b695d504cb1a7f7b5ff24925"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "PDX.SDK.dll",
+        "Facepunch.Steamworks.Win64.dll",
+        "ICSharpCode.SharpZipLib.dll",
+        "Facepunch.Steamworks.Posix.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

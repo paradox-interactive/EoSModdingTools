@@ -1,0 +1,10 @@
+By accepting, installing or downloading (or similar) this modding build, you accept the following. Paradox Interactive
+AB hereby grants you a revocable license to use this modding build only for the purpose of testing the build, modifying
+the build and creating mods with the build. For the avoidance of doubt, the build and the existence of the build
+constitute "confidential information", as set out in the NDA you have signed. You may not distribute the build or any
+mods created therewith to any third parties until the public release of the 1.06 patch of Empire of Sin.
+
+This modding package, and any source code relating to Empire of Sin contained therein (together defined as the
+"Package"), is provided solely for the purpose of enabling you to create and make available mods for Empire of Sin.
+You are not allowed to use the Package for any other purpose. In addition, the Empire of Sin EULA and the latest
+version of Paradox's mod policy (as posted on Paradox's website from time to time) apply to the Package.

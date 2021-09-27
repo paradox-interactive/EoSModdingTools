@@ -1,0 +1,18 @@
+# Empire of Sin Modding Tools Changelog
+
+## [0.0.3] - 2021-09-03
+### Changed
+- Separated GameSource.zip and EoSModdingTools.unitypackage
+- Updated Images/Preview.jpg with a better looking template image
+- Improved validation and error handling for Paradox Mods and Steam Workshop publishing
+- Automatically remove spaces and detect invalid path characters in entered mod name
+
+## [0.0.2] - 2021-09-02
+### Changed
+- Local publish now works if title, description, preview image have not been set yet
+- Added translated localization files to GameData.zip for reference
+
+## [0.0.1] - 2021-09-01
+### Changed
+- Preview image must now selected from the ModConfig editor in the inspector window. This is less error prone than previous approach using an image asset.
+- Improved validation and error handling when publishing to Steam Workshop and Paradox Mods

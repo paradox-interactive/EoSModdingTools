@@ -1,0 +1,10 @@
+-- --------------------------------------------------
+-- #SCRIPTNAME#.br
+-- --------------------------------------------------
+
+SCRIPT INTERACTION "TODO_GIVE_ME_A_NAME"
+
+VAR EntryPoint "GIVE_ME_A_NAME_Start"
+
+START_QUOTE
+    SelectFromTalkStageOrEntry()
