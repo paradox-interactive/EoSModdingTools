@@ -1,5 +1,9 @@
 # Empire of Sin Modding Tools Changelog
 
+## [0.0.4] - 2021-09-27
+### Changed
+- Updated list of supported modding tags
+
 ## [0.0.3] - 2021-09-03
 ### Changed
 - Separated GameSource.zip and EoSModdingTools.unitypackage
