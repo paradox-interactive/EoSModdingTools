@@ -1,5 +1,10 @@
 # Empire of Sin Modding Tools Changelog
 
+## [0.0.5] - 2021-10-09
+### Changed
+- Preview images must be <1mb and in jpg format so Steam will accept them
+- Use production Paradox Mods server for publishing
+
 ## [0.0.4] - 2021-09-27
 ### Changed
 - Updated list of supported modding tags
