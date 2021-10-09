@@ -70,6 +70,23 @@ namespace RomeroGames
         {
             ModUtils.ExportModdingTools();
         }
+
+        [MenuItem("Tools/Modding Tools/Export GameSource")]
+        public static void ExportGameSource()
+        {
+            string path = EditorUtility.SaveFilePanel("Export game source archive", "", "GameSource.zip", "zip");
+            if (path.Length != 0)
+            {
+                if (ModUtils.ExportGameSource(path))
+                {
+                    Debug.Log("Exported game source to: {path}");
+                }
+                else
+                {
+                    Debug.LogError("Failed to export game source to: {path}");
+                }
+            }
+        }
 #endif
     }
 }

@@ -1,4 +1,4 @@
-﻿#define USE_PARADOX_SANDBOX
+﻿//#define USE_PARADOX_SANDBOX
 #define ENABLE_STEAM_WORKSHOP
 #define ENABLE_PARADOX_MODS
 
@@ -14,7 +14,7 @@ namespace RomeroGames
     [CustomEditor(typeof(ModConfig))]
     public class ModConfigEditor : Editor
     {
-        private const string WikiURL = "https://eos.paradoxwikis.com/Empire_of_Sin_Wiki";
+        private const string WikiURL = "https://eos.paradoxwikis.com/Empire_of_Sin_Wiki/Modding";
 
 #if USE_PARADOX_SANDBOX
         private const string ParadoxModsURL = "https://sandbox-mods.paradoxplaza.com/games/renegade";
@@ -154,6 +154,15 @@ namespace RomeroGames
                 Assert.IsNotNull(modConfig);
 
                 byte[] bytes = File.ReadAllBytes(path);
+
+                if (bytes.Length > 1024 * 1024)
+                {
+                    string message = "Preview image must be less than 1mb";
+                    Debug.LogError(message);
+                    ModUtils.ShowEditorNotification(message);
+                    return;
+                }
+
                 modConfig.PreviewImageData = Convert.ToBase64String(bytes);
                 modConfig.PreviewImageFilename = Path.GetFileName(path);
 
@@ -246,7 +255,7 @@ namespace RomeroGames
             {
                 if (_previewImageTexture == null)
                 {
-                    EditorGUILayout.HelpBox("Choose a preview image to display for this mod on Paradox Mods / Steam Workshop. Recommended dimensions are 1024x768. Image may be .jpg, .png", MessageType.Warning);
+                    EditorGUILayout.HelpBox("Choose a preview image to display for this mod on Paradox Mods / Steam Workshop. Recommended dimensions are 1024x768. Image must be .jpg and less than 1mb", MessageType.Warning);
                 }
                 else
                 {
@@ -259,7 +268,7 @@ namespace RomeroGames
 
                 if (GUILayout.Button(_selectPreviewImageContent))
                 {
-                    string path = EditorUtility.OpenFilePanel("Select preview image", "", "png,jpg");
+                    string path = EditorUtility.OpenFilePanel("Select preview image", "", "jpg,jpeg");
                     if (path.Length != 0)
                     {
                         LoadPreviewImage(path);

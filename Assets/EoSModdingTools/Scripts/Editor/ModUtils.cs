@@ -388,7 +388,7 @@ namespace RomeroGames
 #if EXCLUDE_MODDING_SUPPORT
         public static void ExportModdingTools()
         {
-            const string ModdingToolsVersion = "0.0.4";
+            const string ModdingToolsVersion = "0.0.5";
 
             string exportPath = EditorUtility.SaveFilePanel(
                 "Export Modding Tools",
@@ -414,7 +414,7 @@ namespace RomeroGames
             Debug.Log($"Exported EoSModdingTools: {exportPath}");
         }
 
-        public static void ExportGameSource(string archiveFile)
+        public static bool ExportGameSource(string archiveFile)
         {
             Dictionary<string, string> archiveFiles = new Dictionary<string, string>();
 
@@ -422,18 +422,21 @@ namespace RomeroGames
             {
                 "Assets/Mods/GameData/Lua",
                 "Assets/Mods/GameData/BRScript",
-                "Assets/Mods/GameData/Localization"
+                "Assets/Mods/GameData/Localization",
+                "Assets/Mods/DLC4/Lua",
+                "Assets/Mods/DLC4/BRScript",
+                "Assets/Mods/DLC4/Localization"
             });
 
             foreach (string guid in guids)
             {
                 string inputPath = AssetDatabase.GUIDToAssetPath(guid);
-                if (inputPath.StartsWith("Assets/Mods/GameData/Lua/BR/"))
+                if (inputPath.Contains("/Lua/BR/"))
                 {
                     continue;
                 }
 
-                if (inputPath.StartsWith("Assets/Mods/GameData/Localization/") &&
+                if (inputPath.Contains("/Localization/") &&
                     Path.GetExtension(inputPath) != ".json")
                 {
                     continue;
@@ -445,9 +448,9 @@ namespace RomeroGames
                 }
 
                 string outputPath;
-                if (inputPath.StartsWith("Assets/Mods/GameData/"))
+                if (inputPath.StartsWith("Assets/Mods/"))
                 {
-                    outputPath = inputPath.Replace("Assets/Mods/GameData", "GameData");
+                    outputPath = inputPath.Replace("Assets/Mods/", "");
                 }
                 else
                 {
@@ -514,9 +517,11 @@ For more information on modding Empire of Sin please visit: https://eos.paradoxw
             {
                 // No need to rethrow the exception as for our purposes its handled.
                 Console.WriteLine("Exception during processing {0}", ex);
+                return false;
             }
 
             Debug.Log($"Exported game source archive: {archiveFile}");
+            return true;
         }
 #endif
     }
