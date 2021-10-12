@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 namespace RomeroGames
@@ -342,7 +343,7 @@ namespace RomeroGames
                 string numberString = _source.Substring(_start, _current - _start);
                 try
                 {
-                    Double n = Double.Parse(numberString);
+                    Double n = Double.Parse(numberString, CultureInfo.InvariantCulture);
                     AddToken(TokenType.NUMBER, new TokenLocation(_line, (_start + 1) - _lineStart), n);
                 }
                 catch (Exception ex)
@@ -469,7 +470,7 @@ namespace RomeroGames
                     string n = text.Substring(checkStart);
                     try
                     {
-                        literal = Int32.Parse(n);
+                        literal = Int32.Parse(n, CultureInfo.InvariantCulture);
                         tokenType = matchType;
                     }
                     catch (Exception)

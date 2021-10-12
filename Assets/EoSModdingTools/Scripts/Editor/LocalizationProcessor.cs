@@ -563,6 +563,7 @@ namespace RomeroGames
             }
             existingKeys.UnionWith(stringKeys);
 
+#if EXCLUDE_MODDING_SUPPORT
             // Verify that simple string references refer to a valid string
             foreach (var kv in stringReferences)
             {
@@ -574,6 +575,7 @@ namespace RomeroGames
                     valid = false;
                 }
             }
+#endif
 
             return valid;
         }

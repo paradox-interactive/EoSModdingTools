@@ -54,6 +54,7 @@ namespace RomeroGames
 
             AssetDatabase.CreateAsset(asset, assetPath);
             AssetDatabase.CreateFolder(Path.Combine(ModUtils.ModsFolder, modName), "Lua");
+            AssetDatabase.CreateFolder(Path.Combine(ModUtils.ModsFolder, modName, "Lua"), "Scripts");
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

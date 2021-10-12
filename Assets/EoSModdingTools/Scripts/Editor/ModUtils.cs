@@ -25,58 +25,50 @@ namespace RomeroGames
         {
             Assert.IsNotNull(modDescription);
 
-            try
+            using (ZipOutputStream OutputStream = new ZipOutputStream(File.Create(OutputFilePath)))
             {
-                using (ZipOutputStream OutputStream = new ZipOutputStream(File.Create(OutputFilePath)))
-                {
-                    OutputStream.SetLevel(CompressionLevel);
-                    byte[] buffer = new byte[4096];
+                OutputStream.SetLevel(CompressionLevel);
+                byte[] buffer = new byte[4096];
 
-                    DateTime now = DateTime.Now;
-                    ZipEntry modDescriptionEntry = new ZipEntry(ModDescription.ModDescriptionFile)
+                DateTime now = DateTime.Now;
+                ZipEntry modDescriptionEntry = new ZipEntry(ModDescription.ModDescriptionFile)
+                {
+                    DateTime = now
+                };
+
+                OutputStream.PutNextEntry(modDescriptionEntry);
+                string modDescriptionJSON = JsonUtility.ToJson(modDescription, true);
+                byte[] bytes = Encoding.UTF8.GetBytes(modDescriptionJSON);
+                OutputStream.Write(bytes, 0, bytes.Length);
+
+                foreach (string file in InputFiles)
+                {
+                    string fileInZip = EoSPathUtils.CleanPath(file.Replace(modPath, "Raw~/"));
+
+                    ZipEntry entry = new ZipEntry(fileInZip)
                     {
                         DateTime = now
                     };
 
-                    OutputStream.PutNextEntry(modDescriptionEntry);
-                    string modDescriptionJSON = JsonUtility.ToJson(modDescription, true);
-                    byte[] bytes = Encoding.UTF8.GetBytes(modDescriptionJSON);
-                    OutputStream.Write(bytes, 0, bytes.Length);
+                    OutputStream.PutNextEntry(entry);
 
-                    foreach (string file in InputFiles)
+                    using (FileStream fs = File.OpenRead(file))
                     {
-                        string fileInZip = EoSPathUtils.CleanPath(file.Replace(modPath, "Raw~/"));
-
-                        ZipEntry entry = new ZipEntry(fileInZip)
+                        int sourceBytes;
+                        do
                         {
-                            DateTime = now
-                        };
-
-                        OutputStream.PutNextEntry(entry);
-
-                        using (FileStream fs = File.OpenRead(file))
-                        {
-                            int sourceBytes;
-                            do
-                            {
-                                sourceBytes = fs.Read(buffer, 0, buffer.Length);
-                                OutputStream.Write(buffer, 0, sourceBytes);
-                            } while (sourceBytes > 0);
-                        }
+                            sourceBytes = fs.Read(buffer, 0, buffer.Length);
+                            OutputStream.Write(buffer, 0, sourceBytes);
+                        } while (sourceBytes > 0);
                     }
-
-                    OutputStream.Finish();
-                    OutputStream.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                // No need to rethrow the exception as for our purposes its handled.
-                Console.WriteLine("Exception during processing {0}", ex);
+
+                OutputStream.Finish();
+                OutputStream.Close();
             }
         }
 
-        private static bool BuildArchive(ModConfig modConfig, out string modArchiveFile)
+        private static bool BuildArchive(ModConfig modConfig, out string modArchiveFile, out string archiveErrorMessage)
         {
             string modPath = modConfig.GetModPath();
             string modName = modConfig.GetModName();
@@ -97,6 +89,13 @@ namespace RomeroGames
                 }
             }
 
+            if (inputFiles.Count == 0)
+            {
+                modArchiveFile = string.Empty;
+                archiveErrorMessage = "Failed to build mod archive. Mod does not contain any files";
+                return false;
+            }
+
             modPath += Path.DirectorySeparatorChar;
             modPath = EoSPathUtils.CleanPath(modPath).Replace("//", "/");
 
@@ -110,13 +109,23 @@ namespace RomeroGames
                 ParadoxModsId = modConfig.ParadoxModsId,
             };
 
-            CreateZip(modPath, inputFiles, modDescription, tempPath);
+            try
+            {
+                CreateZip(modPath, inputFiles, modDescription, tempPath);
+            }
+            catch (Exception ex)
+            {
+                modArchiveFile = string.Empty;
+                archiveErrorMessage = $"Failed to build mod archive. {ex.Message}";
+                return false;
+            }
 
             modArchiveFile = tempPath;
+            archiveErrorMessage = string.Empty;
             return true;
         }
 
-        public static bool BuildPreviewImage(ModConfig modConfig, out string previewImageFile, out string errorMessage)
+        private static bool BuildPreviewImage(ModConfig modConfig, out string previewImageFile, out string errorMessage)
         {
             previewImageFile = string.Empty;
             errorMessage = String.Empty;
@@ -274,9 +283,9 @@ namespace RomeroGames
                 string modName = modConfig.GetModName();
                 BuildModResources(modName);
 
-                if (!BuildArchive(modConfig, out string modArchiveFile))
+                if (!BuildArchive(modConfig, out string modArchiveFile, out string archiveErrorMessage))
                 {
-                    onComplete(false, "Failed to build mod archive");
+                    onComplete(false, archiveErrorMessage);
                     return;
                 }
 
@@ -388,7 +397,7 @@ namespace RomeroGames
 #if EXCLUDE_MODDING_SUPPORT
         public static void ExportModdingTools()
         {
-            const string ModdingToolsVersion = "0.0.5";
+            const string ModdingToolsVersion = "0.0.6";
 
             string exportPath = EditorUtility.SaveFilePanel(
                 "Export Modding Tools",

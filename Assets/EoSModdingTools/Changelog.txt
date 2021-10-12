@@ -1,5 +1,14 @@
 # Empire of Sin Modding Tools Changelog
 
+## [0.0.6] - 2021-10-11
+### Changed
+- Disable string reference check in LocalizationProcessor (not necessary)
+- Fail to publish if mod contains zero files
+
+### Fixed
+- BR Parser now uses invariant culture when parsing numbers
+
+
 ## [0.0.5] - 2021-10-09
 ### Changed
 - Preview images must be <1mb and in jpg format so Steam will accept them
