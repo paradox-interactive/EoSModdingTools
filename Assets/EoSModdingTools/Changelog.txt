@@ -1,5 +1,13 @@
 # Empire of Sin Modding Tools Changelog
 
+## [0.0.7] - 2021-10-18
+### Changed
+- Create Lua/Scripts folder by default when creating a new mod
+- Errors during publishing are now displayed in a popup dialog
+
+### Fixed
+- "View Modding Documentation" button now links to correct wiki page
+
 ## [0.0.6] - 2021-10-11
 ### Changed
 - Disable string reference check in LocalizationProcessor (not necessary)
@@ -7,7 +15,6 @@
 
 ### Fixed
 - BR Parser now uses invariant culture when parsing numbers
-
 
 ## [0.0.5] - 2021-10-09
 ### Changed

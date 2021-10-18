@@ -394,10 +394,15 @@ namespace RomeroGames
             view.Repaint();
         }
 
+        public static void ShowEditorPopup(string title, string message)
+        {
+            EditorUtility.DisplayDialog(title, message, "Ok");
+        }
+
 #if EXCLUDE_MODDING_SUPPORT
         public static void ExportModdingTools()
         {
-            const string ModdingToolsVersion = "0.0.6";
+            const string ModdingToolsVersion = "0.0.7";
 
             string exportPath = EditorUtility.SaveFilePanel(
                 "Export Modding Tools",

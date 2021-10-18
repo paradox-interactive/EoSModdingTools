@@ -14,7 +14,7 @@ namespace RomeroGames
     [CustomEditor(typeof(ModConfig))]
     public class ModConfigEditor : Editor
     {
-        private const string WikiURL = "https://eos.paradoxwikis.com/Empire_of_Sin_Wiki/Modding";
+        private const string WikiURL = "https://eos.paradoxwikis.com/Modding";
 
 #if USE_PARADOX_SANDBOX
         private const string ParadoxModsURL = "https://sandbox-mods.paradoxplaza.com/games/renegade";
@@ -372,14 +372,14 @@ namespace RomeroGames
                             {
                                 message = $"Published '{modConfig.GetModName()}' to local";
                                 Debug.Log(message);
+                                ModUtils.ShowEditorNotification(message);
                             }
                             else
                             {
                                 message = $"Failed to publish '{modConfig.GetModName()}' to local.";
-                                Debug.LogError(errorMessage);
-                                Debug.LogError(message);
+                                Debug.LogError($"{message}. {errorMessage}");
+                                ModUtils.ShowEditorPopup(message, errorMessage);
                             }
-                            ModUtils.ShowEditorNotification(message);
                         });
                     }
                 }
@@ -439,14 +439,14 @@ namespace RomeroGames
                             {
                                 message = $"Published '{modConfig.GetModName()}' to Paradox Mods";
                                 Debug.Log(message);
+                                ModUtils.ShowEditorNotification(message);
                             }
                             else
                             {
                                 message = $"Failed to publish '{modConfig.GetModName()}' to Paradox Mods";
-                                Debug.LogError(errorMessage);
-                                Debug.LogError(message);
+                                Debug.LogError($"{message}. {errorMessage}");
+                                ModUtils.ShowEditorPopup(message, errorMessage);
                             }
-                            ModUtils.ShowEditorNotification(message);
                         });
                     }
                 }
@@ -493,14 +493,14 @@ namespace RomeroGames
                             {
                                 message = $"Published '{modConfig.GetModName()}' to Steam Workshop";
                                 Debug.Log(message);
+                                ModUtils.ShowEditorNotification(message);
                             }
                             else
                             {
                                 message = $"Failed to publish '{modConfig.GetModName()}' to Steam Workshop";
-                                Debug.LogError(errorMessage);
-                                Debug.LogError(message);
+                                Debug.LogError($"{message}. {errorMessage}");
+                                ModUtils.ShowEditorPopup(message, errorMessage);
                             }
-                            ModUtils.ShowEditorNotification(message);
                         });
                     }
                 }
