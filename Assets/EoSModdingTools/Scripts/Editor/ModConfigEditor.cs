@@ -1,5 +1,4 @@
-﻿//#define USE_PARADOX_SANDBOX
-#define ENABLE_STEAM_WORKSHOP
+﻿#define ENABLE_STEAM_WORKSHOP
 #define ENABLE_PARADOX_MODS
 
 using System;
@@ -16,13 +15,8 @@ namespace RomeroGames
     {
         private const string WikiURL = "https://eos.paradoxwikis.com/Modding";
 
-#if USE_PARADOX_SANDBOX
-        private const string ParadoxModsURL = "https://sandbox-mods.paradoxplaza.com/games/renegade";
-        private const string ParadoxModsItemURL = "https://sandbox-mods.paradoxplaza.com/mods/{0}/Any";
-#else
         private const string ParadoxModsURL = "https://mods.paradoxplaza.com/games/renegade";
         private const string ParadoxModsItemURL = "https://mods.paradoxplaza.com/mods/{0}/Any";
-#endif
 
         private const string SteamWorkshopURL = "https://steamcommunity.com/workshop/browse/?appid=604540";
         private const string SteamWorkshopItemURL = "https://steamcommunity.com/sharedfiles/filedetails/?id={0}";

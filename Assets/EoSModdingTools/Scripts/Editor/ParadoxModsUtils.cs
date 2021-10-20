@@ -7,11 +7,9 @@ namespace RomeroGames
 {
     public static class ParadoxModsUtils
     {
-        // Todo: Replace with production namespace
-        //private const string ParadoxNamespace  = "empire_of_sin";
-        private const string ParadoxNamespace = "renegade";
+        private const string ParadoxNamespace  = "empire_of_sin";
 
-        private static async Task<SDK.Context> InitContext(ModConfig modConfig)
+        private static async Task<(SDK.Context, string)> InitContext(ModConfig modConfig)
         {
 #if UNITY_EDITOR_WIN
             SDK.Platform pdxPlatform = SDK.Platform.Windows;
@@ -21,7 +19,12 @@ namespace RomeroGames
                 Debug.LogError("Unsupported build platform");
                 return;
 #endif
-            SDK.Context _context = SDK.Context.Create(pdxPlatform, ParadoxNamespace);
+            SDK.Config config = new SDK.Config()
+            {
+                Environment = SDK.BackendEnvironment.Live,
+            };
+
+            SDK.Context _context = SDK.Context.Create(pdxPlatform, ParadoxNamespace, config);
 
             SDK.Credential.EmailAndPassword MailAndPassCred = new SDK.Credential.EmailAndPassword(
                 email: modConfig.ParadoxEmail,
@@ -32,23 +35,26 @@ namespace RomeroGames
             SDK.Account.Result.Login loginResult = await _context.Account.Login(MailAndPassCred);
             if (loginResult.Success)
             {
-                return _context;
+                return (_context, string.Empty);
             }
 
-            Debug.LogError("Failed to initialize Paradox SDK context");
-            return null;
+            string message = $"Paradox login failed.\n{loginResult.Error.Raw}";
+            return (null, message);
         }
 
         public static async Task<(bool,string)> Upload(ModConfig modConfig, string modArchiveFile, string modPreviewFile)
         {
-            SDK.Context context = await InitContext(modConfig);
+            SDK.Context context;
+            string errorMessage;
+
+            (context, errorMessage) = await InitContext(modConfig);
             if (context == null)
             {
-                return (false, "Failed to init Paradox SDK context");
+                return (false, errorMessage);
             }
 
             bool success = false;
-            string errorMessage = string.Empty;
+            errorMessage = string.Empty;
 
             if (modConfig.ParadoxModsId == 0)
             {

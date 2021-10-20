@@ -1,5 +1,10 @@
 # Empire of Sin Modding Tools Changelog
 
+## [0.0.8] - 2021-10-20
+### Changed
+- Use production Paradox Mods environment
+- Improve error message when login to Paradox Mods fails
+
 ## [0.0.7] - 2021-10-18
 ### Changed
 - Create Lua/Scripts folder by default when creating a new mod
