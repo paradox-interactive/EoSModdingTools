@@ -1,5 +1,9 @@
 # Empire of Sin Modding Tools Changelog
 
+## [1.0.0] - 2021-10-20
+### Changed
+- Removed NDA notice from license
+
 ## [0.0.8] - 2021-10-20
 ### Changed
 - Use production Paradox Mods environment

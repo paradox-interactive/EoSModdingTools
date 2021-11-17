@@ -402,7 +402,7 @@ namespace RomeroGames
 #if EXCLUDE_MODDING_SUPPORT
         public static void ExportModdingTools()
         {
-            const string ModdingToolsVersion = "0.0.8";
+            const string ModdingToolsVersion = "1.0.0";
 
             string exportPath = EditorUtility.SaveFilePanel(
                 "Export Modding Tools",
