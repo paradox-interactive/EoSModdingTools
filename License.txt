@@ -1,0 +1,4 @@
+This modding package, and any source code relating to Empire of Sin contained therein (together defined as the
+"Package"), is provided solely for the purpose of enabling you to create and make available mods for Empire of Sin.
+You are not allowed to use the Package for any other purpose. In addition, the Empire of Sin EULA and the latest
+version of Paradox's mod policy (as posted on Paradox's website from time to time) apply to the Package.
