@@ -71,6 +71,7 @@ namespace RomeroGames
             MAKE_STRING,
             STRING_COMMAND,
             REM,
+            ROLE,
 
             ENTRY,
 
@@ -390,6 +391,11 @@ namespace RomeroGames
                 {
                     checkStart = "HOVER_OPTION".Length;
                     matchType = TokenType.HOVER_OPTION;
+                }
+                else if (text.StartsWith("ROLE"))
+                {
+                    checkStart = "ROLE".Length;
+                    matchType = TokenType.ROLE;
                 }
                 else if (text.StartsWith("HIDE_OPTION"))
                 {

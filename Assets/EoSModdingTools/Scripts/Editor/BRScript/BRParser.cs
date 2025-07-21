@@ -441,7 +441,7 @@ namespace RomeroGames
                     }
                     optionStatements.Add(ParseOptionStatement());
                 }
-                else if (Check(TokenType.HIDE_OPTION) || Check(TokenType.DISABLE_OPTION) || Check(TokenType.SUCCESS_CHANCE_OPTION) || Check(TokenType.TONE_OPTION) || Check(TokenType.TOOLTIP_OPTION) || Check(TokenType.HOVER_OPTION) || Check(TokenType.REWARD_OPTION))
+                else if (Check(TokenType.HIDE_OPTION) || Check(TokenType.DISABLE_OPTION) || Check(TokenType.SUCCESS_CHANCE_OPTION) || Check(TokenType.TONE_OPTION) || Check(TokenType.TOOLTIP_OPTION) || Check(TokenType.HOVER_OPTION) || Check(TokenType.REWARD_OPTION) || Check(TokenType.ROLE))
                 {
                     if (controlOptionStatements == null)
                     {
@@ -545,6 +545,13 @@ namespace RomeroGames
                 result.option = (int)cur.literal;
                 Advance();
             }
+            else if (cur.type == TokenType.ROLE)
+            {
+                result = new BRScript.ControlOptionStatement();
+                result.token = cur;
+                result.option = (int)cur.literal;
+                Advance();
+            }
             else if (cur.type == TokenType.TONE_OPTION)
             {
                 result = new BRScript.ControlOptionStatement();
@@ -612,6 +619,19 @@ namespace RomeroGames
                 else
                 {
                     throw NewBRException("Unexpected token after REWARD_OPTION command - expected a string!");
+                }
+            }
+            if(result.token.type == TokenType.ROLE)
+            {
+                Token curToken = Peek();
+                if (curToken.type == TokenType.STRING)
+                {
+                    result.text = curToken.literal.ToString();
+                    Advance();
+                }
+                else
+                {
+                    throw NewBRException("Unexpected token after ROLE command - expected a string!");
                 }
             }
             else

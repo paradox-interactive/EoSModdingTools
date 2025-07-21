@@ -15,7 +15,7 @@ namespace RomeroGames
     {
         private const string WikiURL = "https://eos.paradoxwikis.com/Modding";
 
-        private const string ParadoxModsURL = "https://mods.paradoxplaza.com/games/renegade";
+        private const string ParadoxModsURL = "https://mods.paradoxplaza.com/games/empire_of_sin";
         private const string ParadoxModsItemURL = "https://mods.paradoxplaza.com/mods/{0}/Any";
 
         private const string SteamWorkshopURL = "https://steamcommunity.com/workshop/browse/?appid=604540";

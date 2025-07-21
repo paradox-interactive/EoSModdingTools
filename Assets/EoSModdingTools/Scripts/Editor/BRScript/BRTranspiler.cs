@@ -128,6 +128,21 @@ namespace RomeroGames
                 }
                 return null;
             }
+            
+            public BRScript.ControlOptionStatement GetRoleModifier()
+            {
+                if (modifiers != null)
+                {
+                    foreach(BRScript.ControlOptionStatement modifier in modifiers)
+                    {
+                        if (modifier.token.type == BRScanner.TokenType.ROLE)
+                        {
+                            return modifier;
+                        }
+                    }
+                }
+                return null;
+            }
         }
 
         public class StringWithVariables
@@ -739,6 +754,7 @@ namespace RomeroGames
                 BRScript.ControlOptionStatement disableModifier = blockOption.GetDisableModifier();
                 BRScript.ControlOptionStatement hoverModifier = blockOption.GetHoverModifier();
                 BRScript.ControlOptionStatement rewardModifier = blockOption.GetRewardModifier();
+                BRScript.ControlOptionStatement roleModifier = blockOption.GetRoleModifier();
                 if (hideModifier != null)
                 {
                     IndentLine(_curSB).Append("if not ");
@@ -807,6 +823,14 @@ namespace RomeroGames
                 else
                 {
                     _curSB.Append(", " + rewardModifier.text);
+                }
+                if (roleModifier == null)
+                {
+                    _curSB.Append(", nil");
+                }
+                else
+                {
+                    _curSB.Append(", \"" + roleModifier.text + "\"");
                 }
                 _curSB.Append(") --$ ").AppendLine(TranspileTextSection(parsedVal));
                 if (blockOption.modifiers != null)

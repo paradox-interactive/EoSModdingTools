@@ -1,5 +1,13 @@
 # Empire of Sin Modding Tools Changelog
 
+## [1.0.1] - 2025-07-21
+### Changed
+- Add supporting a new token "ROLE" in BR Scripts (for selecting who speaks in cinematic dialogue)
+- Update path to local mods
+
+### Fixed
+- ParadoxModsURL links to correct mod page
+
 ## [1.0.0] - 2021-10-20
 ### Changed
 - Removed NDA notice from license
