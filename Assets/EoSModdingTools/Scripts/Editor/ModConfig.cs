@@ -94,7 +94,7 @@ namespace RomeroGames
                 DirectoryInfo parent = Directory.GetParent(dataPath).Parent;
                 Assert.IsNotNull(parent);
 
-                LocalModsPath = CleanPath(parent.FullName + "/RomeroGames/EmpireOfSin/Mods");
+                LocalModsPath = CleanPath(parent.FullName + "/Paradox Interactive/Empire of Sin/Mods");
             }
         }
 

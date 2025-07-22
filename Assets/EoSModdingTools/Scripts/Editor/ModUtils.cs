@@ -402,7 +402,7 @@ namespace RomeroGames
 #if EXCLUDE_MODDING_SUPPORT
         public static void ExportModdingTools()
         {
-            const string ModdingToolsVersion = "1.0.0";
+            const string ModdingToolsVersion = "1.0.1";
 
             string exportPath = EditorUtility.SaveFilePanel(
                 "Export Modding Tools",
@@ -439,7 +439,10 @@ namespace RomeroGames
                 "Assets/Mods/GameData/Localization",
                 "Assets/Mods/DLC4/Lua",
                 "Assets/Mods/DLC4/BRScript",
-                "Assets/Mods/DLC4/Localization"
+                "Assets/Mods/DLC4/Localization",
+                "Assets/Mods/DLC5/Lua",
+                "Assets/Mods/DLC5/BRScript",
+                "Assets/Mods/DLC5/Localization"
             });
 
             foreach (string guid in guids)
