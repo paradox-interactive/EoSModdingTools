@@ -16,7 +16,7 @@ namespace RomeroGames
             // Get the current selected path
             string selectedPath =  AssetDatabase.GetAssetPath(Selection.activeObject);
 
-            // If its empty then assume Assets
+            // If it's empty then assume Assets
             if( selectedPath == "" )
             {
                 selectedPath = "Assets";
