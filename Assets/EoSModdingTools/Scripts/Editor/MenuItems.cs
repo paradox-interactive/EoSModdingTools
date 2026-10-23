@@ -10,7 +10,7 @@ namespace RomeroGames
         [MenuItem("Tools/Modding Tools/Create New Mod")]
         private static void CreateNewMod()
         {
-            string modName = EditorInputDialog.Show( "Create New Mod", "Please Enter the name of the new mod", string.Empty );
+            string modName = EditorInputDialog.Show( "Create New Mod", "Please enter the name of the new mod", string.Empty );
             string title = modName.Trim();
 
             // White space in mod folder names causes problems when publishing to Paradox Mods
@@ -80,11 +80,11 @@ namespace RomeroGames
             {
                 if (ModUtils.ExportGameSource(path))
                 {
-                    Debug.Log("Exported game source to: {path}");
+                    Debug.Log($"Exported game source to: {path}");
                 }
                 else
                 {
-                    Debug.LogError("Failed to export game source to: {path}");
+                    Debug.LogError($"Failed to export game source to: {path}");
                 }
             }
         }
